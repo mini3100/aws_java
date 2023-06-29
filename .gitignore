@@ -12,6 +12,7 @@ target
 # [ Intellij ]
 # folder
 .idea
+out
 
 # file
 *.iml
