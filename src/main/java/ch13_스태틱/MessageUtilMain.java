@@ -13,7 +13,7 @@ public class MessageUtilMain {
 //		Array01.main(null);
 		
 		MessageUtil messageUtil = new MessageUtil();
-//		
+
 //		messageUtil.sendMail();
 //		messageUtil.sendFile();
 		
