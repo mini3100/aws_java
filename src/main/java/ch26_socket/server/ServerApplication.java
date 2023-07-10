@@ -57,6 +57,11 @@ public class ServerApplication {
 							Socket socket = serverSocket.accept();
 							//Socket이 연결될 때까지 대기
 							//대기하고 있는데 serverSocket 객체를 소멸시키면 SocketException 예외가 발생
+							ConnectedSocket connectedSocket = new ConnectedSocket(socket);
+							connectedSocket.start();	//thread 시작
+							ConnectedClientController.getInstance().getConnectedSockets().add(connectedSocket);
+							//접속이 이루어질 때마다 새로운 스레드를 생성(각각의 소켓마다 새로운 스레드)
+							//ConnectedSocket(스레드)을 담는 List
 							System.out.println("접속!!");
 							System.out.println(socket.getInetAddress().getHostAddress());
 						}
