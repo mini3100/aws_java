@@ -36,11 +36,11 @@ public class Casting {
 
 		for (int i = 0; i < programs.length; i++) {
 			programs[i].develop();
-			if(programs[i] instanceof Java) {
+			if(programs[i].getClass() == Java.class) {	//programs[i] instanceof Java
 				Java j = (Java)programs[i];
 				j.garbageCollection();
 			}
-			else if(programs[i] instanceof C) {
+			else if(programs[i].getClass() == C.class) {
 				C c = (C)programs[i];
 				c.defineStructure();
 			}
