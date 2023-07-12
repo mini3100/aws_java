@@ -7,9 +7,12 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch26_socket.simpleGUI.server.entity.Room;
+
 public class SimpleGUIServer {
 	
 	public static List<ConnectedSocket> connectedSocketList = new ArrayList<>();
+	public static List<Room> roomList = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		try {

@@ -33,9 +33,14 @@ public class ClientReceiver extends Thread {
 		String resource = gson.fromJson(requestBody, RequestBodyDto.class).getResource();
 		
 		switch(resource) {
+			case "updateRoomList":
+				List<String> roomList = (List<String>) gson.fromJson(requestBody, RequestBodyDto.class).getBody();
+				SimpleGUIClient.getInstance().getRoomListModel().clear();
+				SimpleGUIClient.getInstance().getRoomListModel().addAll(roomList);
+				break;
 			case "showMessage":
 				String messageContent = (String) gson.fromJson(requestBody, RequestBodyDto.class).getBody();
-				SimpleGUIClient.getInstance().getTextArea().append(messageContent + "\n");
+				SimpleGUIClient.getInstance().getChattingTextArea().append(messageContent + "\n");
 				break;
 			case "updateUserList":
 				List<String> usernameList = (List<String>) gson.fromJson(requestBody, RequestBodyDto.class).getBody();				
