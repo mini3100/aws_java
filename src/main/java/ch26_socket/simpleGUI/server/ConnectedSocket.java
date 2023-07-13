@@ -66,7 +66,7 @@ public class ConnectedSocket extends Thread {
 		username = (String) gson.fromJson(requestBody, RequestBodyDto.class).getBody(); // private 전역 변수에 저장
 		// 접속 했을 때 서버에 저장된 roomList가 뜨도록
 		List<String> roomNameList = new ArrayList<>();
-		SimpleGUIServer.roomList.forEach(room -> {
+		Server.roomList.forEach(room -> {
 			roomNameList.add(room.getRoomName());
 		});
 
@@ -83,17 +83,17 @@ public class ConnectedSocket extends Thread {
 																			// 들어가면 됨.
 				.userList(new ArrayList<ConnectedSocket>()).build();
 
-		SimpleGUIServer.roomList.add(newRoom);
+		Server.roomList.add(newRoom);
 
 		List<String> roomNameList = new ArrayList<>(); // 방 이름들을 담는 list
-		SimpleGUIServer.roomList.forEach(room -> {
+		Server.roomList.forEach(room -> {
 			roomNameList.add(room.getRoomName());
 		});
 
 		RequestBodyDto<List<String>> updateRoomListRequestBodyDto = new RequestBodyDto<List<String>>("updateRoomList",
 				roomNameList);
 
-		SimpleGUIServer.connectedSocketList.forEach(con -> {
+		Server.connectedSocketList.forEach(con -> {
 			ServerSender.getInstance().send(con.socket, updateRoomListRequestBodyDto);
 		});
 	}
@@ -101,7 +101,7 @@ public class ConnectedSocket extends Thread {
 	private void join(String requestBody) {
 		String roomName = (String) gson.fromJson(requestBody, RequestBodyDto.class).getBody();
 
-		SimpleGUIServer.roomList.forEach(room -> {
+		Server.roomList.forEach(room -> {
 			if (room.getRoomName().equals(roomName)) { // 들어가고자 하는 방 이름과 같은가?
 				room.getUserList().add(this); // 자기 자신(ConnectedSocket)을 userList에 추가
 
@@ -137,7 +137,7 @@ public class ConnectedSocket extends Thread {
 		// RequestBodyDto의 제네릭 타입까지 SendMessage로 바꾸려면 typeToken을 쓰는 것이 필요
 		SendMessage sendMessage = requestBodyDto.getBody();
 
-		SimpleGUIServer.roomList.forEach(room -> {	//roomList의 room객체 - userList<ConnectedSocket>
+		Server.roomList.forEach(room -> {	//roomList의 room객체 - userList<ConnectedSocket>
 			//userList 안에 해당 클라이언트의 ConnectedSocket이 들어 있는지 : 방 안에 유저가 있는지
 			if (room.getUserList().contains(this)) {	
 				room.getUserList().forEach(connectedSocket -> {
